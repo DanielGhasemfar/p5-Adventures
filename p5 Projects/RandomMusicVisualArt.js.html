@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	  
+		var mic
+		balls = []
+		var i
+		
+		function setup(){
+			createCanvas(1000, 1000)
+  			mic = new p5.AudioIn()
+  			mic.start()
+			
+			R = random(255)
+			G = random(255)
+			B = random(255)
+			
+			for(i=0;i<=1000;i++){
+				R = random(255)
+			    G = random(255)
+			    B = random(255)
+				ball = {x:random(width), y:random(height), Vix:random(3)-3, Viy:random(3)-3, r:30, R:R, G:G, B:B}
+				console.log(ball.Vy)
+				balls[i] = ball
+			}
+		}
+		
+		function draw(){
+			background(R,G,B)
+			i++
+			var vol = mic.getLevel()
+			if(vol>0.1 && preVol<0.1){
+			R = random(255)
+			G = random(255)
+			B = random(255)
+			}
+			
+		    for(i=0;i<balls.length;i++){
+			move(balls[i], vol)
+			fill(balls[i].R, balls[i].G, balls[i].B)
+			ellipse(balls[i].x,balls[i].y,200*vol+25,200*vol+25)
+			}
+			
+			preVol = vol
+		}
+		
+		function move(ball, vol){
+			Vx = ball.Vix * vol * 100
+			Vy = ball.Viy * vol * 100
+			ball.x += Vx
+			ball.y += Vy
+			if(ball.x > width || ball.x < 0){
+		    ball.Vix = -1*ball.Vix
+			}
+			if(ball.y>height || ball.y<0){
+			ball.Viy = -1*ball.Viy
+			}
+			fill(random(255),random(255),random(255))
+		}
+		
+		
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

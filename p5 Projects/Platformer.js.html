@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+        
+        
+        var p={x:00,y:00,width:40,height:40}
+        var v={x:0,y:-30}
+        var a={x:0,y:0.5}
+        var IsOnGround = false
+//        var PHeight = 40
+//        var PWidth = 40
+        //var Box = {x:200, y:300, PlatWidth:50, PlatHeight:100}
+        var Plat = []
+        var i=0
+        var time = 0
+        ClosePlat = []
+        var peasLeft=1
+        var peasRight=1
+        
+        
+        function setup(){
+            createCanvas(1000,600);
+            strokeWeight(1);
+        }
+        
+        function draw(){
+            time++
+            translate(-p.x+500,-p.y+300)
+            background(150);
+            line(0,500,600,500)
+            //Box.x=300*sin(time/100)
+            //rect(Box.x,Box.y,Box.PlatWidth,Box.PlatHeight)
+            fill(255)
+            rect(p.x,p.y,p.width,p.height)
+            noFill()
+            //ellipse(p.x,p.y,500,500)
+            fill(0)
+            resetMatrix();
+            Motion();
+            OnGround();
+            Stretch();
+            Move();
+            DrawPlats();
+            //HitBox();
+            ResetClosePlat();
+            CheckTouchingX();
+            CheckTouchingTop();
+            
+            line(-10000,0,10000,0)
+            line(0,-10000,0,10000)
+            stroke(0,255,0)
+            line(-10000,300,10000,300)
+            line(500,-10000,500,10000)
+            stroke(0)
+            
+        }
+        
+        function Motion(){
+            
+            v.y +=  a.y
+            v.x +=  a.x
+            
+            p.y +=  v.y
+            p.x +=  v.x
+        }
+        
+        function OnGround(){
+            if(p.y>=500-p.height){
+                IsOnGround = true
+                p.y = 500-p.height
+                v.y = 0
+                a.y = 0
+            } else {
+                a.y = 0.5
+            }
+        }
+
+        
+        function Stretch(){
+            p.height = map(p.y,-p.height,500-p.height,80,30)
+        p.width = 40 //abs(map(v.x,-5,5,20,-20))+20
+        }
+        
+        function Move(){
+            
+            if(isTouchingX===true){
+                peasLeft=-1
+                peasRight=-1
+            } else {
+                peasLeft=1
+                peasRight=1
+            }
+            
+            
+            if(keyIsDown(39)){
+                    v.x+=.9*peasLeft
+            }
+            
+            if(keyIsDown(37)){
+                    v.x+=-.9*peasRight
+            }
+            v.x = v.x*.9
+        }
+
+        
+//        function HitBox(){
+//         if(p.y>Box.y-Box.PlatHeight){
+//             if (p.y < Box.y+Box.PlatHeight)
+//                 if(p.x+p.width>Box.x){
+//                     if(p.x<Box.x+Box.PlatWidth){
+//                    console.log("hit") 
+//                    v.x=-0.5*v.x
+//                    p.x += -v.x
+//                     }
+//                 }
+//         }       
+//        }
+        
+        function DrawPlats(){
+            translate(-p.x,-p.y)
+            for(j=0;j<Plat.length;j++){
+                rect(Plat[j].x,Plat[j].y,Plat[j].width,Plat[j].height)
+            }
+        }
+               
+        function keyPressed(){
+            if(keyCode == 32){
+                if (IsOnGround === true){
+                IsOnGround = false
+                p.y = p.y-1-p.height
+                v.y=-15
+                }
+            } 
+
+        }
+        
+        function mouseReleased(){
+            resetMatrix()
+            translate(-p.x,-p.y)
+            i++
+            Plat.push({x:mouseX+p.x, y:mouseY+p.y, width:60, height:60})
+            //console.log(sqrt(sq(Plat[j].x-p.x-500)+sq(Plat[j].y-p.y-300)))
+        }
+        
+        
+        function ResetClosePlat(){
+            resetMatrix()
+            translate(-p.x,-p.y)
+            ClosePlat = []
+            for(j=0;j<i;j++){
+            if(sqrt(sq(Plat[j].x-p.x-500)+sq(Plat[j].y-p.y-300))<250){
+                ClosePlat.push(Plat[j])
+            }
+            }
+        }
+        
+        function isTouchingX(a,b){
+            //translate(500,300)
+            if((a.x+500+a.width)>b.x  &&  (a.x+500)<b.x+b.width){
+                if((a.y+300)+a.height>b.y  &&  (a.y+300)<b.y+b.height){
+               return true
+                   } else{ return false}
+               } else{ return false}
+        }
+        
+        function isTouchingTop(a,b){
+            //translate(500,300)
+            if((a.y+300)+a.height>b.y  &&  (a.y+300)<b.y+3){
+                if((a.x+500+a.width)>b.x  &&  (a.x+500)<b.x+b.width){
+                    IsOnGround=!IsOnGround
+               return true
+                   } else{ return false}
+               } else{ return false}
+        }
+        
+        function CheckTouchingX(){
+            //translate(-p.x+500,-p.y+300)
+            //resetMatrix()
+            for(j=0;j<ClosePlat.length;j++)
+            if(isTouchingX(p, ClosePlat[j])){
+                //console.log("contact")
+                p.x=p.x-v.x
+                v.x=0
+                peasLeft=-1
+                peasRight=-1
+                
+            }
+        }
+        
+        function CheckTouchingTop(){
+            //translate(-p.x+500,-p.y+300)
+            //resetMatrix()
+            for(j=0;j<ClosePlat.length;j++)
+            if(isTouchingTop(p, ClosePlat[j])){
+                //p.y=ClosePlat[j].y-299-40
+                p.y = ClosePlat[j].y+1-p.height-300
+                v.y=-0.5
+
+            }
+        }
+
+        
+        
+        
+// The problem is that the coordinates of the ClosePlats[] are in the original reference frame (where (0,0) is in the top right at the very beggining frame) while the p[] (player) is in their own coordinate plane that is shifted so that the origin is at (500,300) relative to the original origin.
+        
+        
+        
+        
+        
+        
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        
+       
+</script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

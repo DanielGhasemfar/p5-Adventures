@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	  
+		p1 = {x:110, y:110, selected:false}
+		p2 = {x:160, y:160, selected:false}
+		C = {R:17, G:225, B:88}
+		RED = {R:255, G:220, B:220}
+		BackC = {R:240, G:240, B:255}
+		TextBox = {P1:p1, P2:p2, selected:false, Colour:C, circles:true}
+		radius = 10
+		CWidth = 900
+		CHeight = 1000
+		PHeight = 100
+		isSelect = false
+		AddTextP1 = {x:6, y:6, selected:false}
+		AddTextP2 = {x:PHeight-16+6, y:PHeight-16, selected:false}
+		AddText = {P1:AddTextP1, P2:AddTextP2, selected:false, Colour:RED, circles:false}
+	  
+	  function setup(){
+		  createCanvas(CWidth+300,CHeight+PHeight)
+	  }
+		
+	  function draw(){
+		  noStroke()
+		  if(TextBox.P1.selected){
+			  TextBox.P1.x = mouseX
+			  TextBox.P1.y = mouseY
+			  isSelect = true
+		  }
+		  if(TextBox.P2.selected){
+			  TextBox.P2.x = mouseX
+			  TextBox.P2.y = mouseY
+			  isSelect = true
+		  }
+		  
+		  if(TextBox.P1.y < PHeight){
+			  TextBox.P1.y = PHeight + 2
+			  TextBox.P1.selected = false
+		  }
+		  if(TextBox.P1.x > CWidth){
+			  TextBox.P2.x = CWidth - 2
+			  TextBox.P2.selected = false
+		  }
+		  if(TextBox.P2.y < PHeight){
+			  TextBox.P2.y = PHeight + 2
+			  TextBox.P2.selected = false
+		  }
+		  if(TextBox.P2.x > CWidth){
+			  TextBox.P2.x = CWidth - 2
+			  TextBox.P2.selected = false
+		  }
+		  
+		  
+		  background(250)
+		  strokeWeight(4)
+		  fill(BackC.R, BackC.G, BackC.B)
+		  rect(0,PHeight,CWidth,CHeight)
+		  rect(CWidth+10,PHeight,width-910,height)
+		  rect(6,6,width-16,PHeight-16)
+		  DrawRect(TextBox)
+		  DrawRect(AddText)
+		  
+	  }
+		
+	  function DrawRect(R){
+		  noStroke()
+		  strokeWeight(1)
+		  fill(R.Colour.R, R.Colour.G, R.Colour.B)
+		  rect(R.P1.x,R.P1.y,(R.P2.x-R.P1.x),(R.P2.y-R.P1.y))
+		  if(R.circles){
+		  noStroke();
+		  fill(255,0,0)
+		  ellipse(R.P1.x, R.P1.y, radius, radius)
+		  ellipse(R.P2.x, R.P2.y, radius, radius)
+		  }
+		  fill(255)
+		  stroke(0)
+	  }	
+		
+		
+	 function mouseReleased(){
+		 if(distance(mouseX,mouseY,TextBox.P1.x,TextBox.P1.y) <= radius){
+			 TextBox.P1.selected = !TextBox.P1.selected
+		 }
+		 if(distance(mouseX,mouseY,TextBox.P2.x,TextBox.P2.y) <= radius){
+			 TextBox.P2.selected = !TextBox.P2.selected
+		 }
+		 if(MouseHover(AddText)){
+			 AddText.Colour = RED
+		 } else {
+			 AddText.Colour = C
+		 }
+	 }
+		
+	 function distance(x1,y1,x2,y2){
+		 d = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+		 return d
+	 }
+		
+	 function MouseHover(R){
+		 if(mouseX < R.P2.x && mouseX > R.P1.x){
+			 if(mouseY > R.P1.y && mouseY < R.P2.y){
+				 return true
+			 }
+		 }
+	 }
+	  
+	  
+	  
+	  
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

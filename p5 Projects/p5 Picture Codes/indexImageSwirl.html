@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+		
+	  var img
+
+	  function preload(){
+		img = loadImage('Landscape.jpeg')	
+	  }	
+
+	  function setup(){
+		createCanvas(img.width*10,img.height*10)
+		//image(img, 0, 0, 1000, 1000)
+	  }
+
+	  function draw(){
+		  noStroke();
+//		  background(255)
+//		  image(img, 0, 0, 1000, 1000)
+		  for(i=0;i<=100;i++){
+			  x=random(width)
+			  y=random(height)
+			  colour = img.get(x/10,y/10)
+			  colour[3] = 100
+			  fill(colour)
+			  radius = random(40)
+			  ellipse(x,y,radius,radius)
+		  }
+      }
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

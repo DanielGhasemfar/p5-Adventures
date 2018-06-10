@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+    var m;
+    var a;
+    var r;
+    var s;
+        
+
+        
+      function setup(){
+         
+    for (m=1;m<10;m++){
+        for (a=0;a<10;a++){
+            for (r=0;r<10;r++){
+                s=(10-((r+a)%10))%10
+                var u=m+a+r+s;
+                if ((r+a+m+((u)-(u)%10)/10)%10==a){
+                    var v=(r+a+m+(u-u%10)/10)
+                    if ((a+m+(v-v%10)/10)%10==r){
+                        var x=(a+m+(v-v%10)/10)
+                        if (m+(x-x%10)/10<10){
+                            if (m==a || m==r || m==s || a==r || a==s || r==s){
+                                
+                            } else {
+                console.log(m+"   "+a+"   "+r+"   "+s)
+                            }
+                        }
+                    }
+                }
+            }   
+        }
+    }      
+          
+              
+      }
+        
+//      function draw(){
+//          
+//      }
+//      
+
+     
+      
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

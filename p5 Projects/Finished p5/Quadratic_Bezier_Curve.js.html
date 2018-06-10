@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+        
+    var p1 = {x:500, y:300};
+    var p2 = {x:400, y:70};
+    var p3 = {x:100, y:50};    
+    var q1 = {x:p1.x, y:p1.y};    
+    var q2 = {x:p2.x, y:p2.y};    
+    var c1 = {x:q1.x, y:q1.y};  
+    var t  = 0;
+        
+        
+        
+        function setup(){
+            createCanvas(600,600);
+            background(150);
+        }
+         
+        function draw(){
+            
+            
+
+            
+if (mouseIsPressed && ((mouseX-p1.x)*(mouseX-p1.x))+((mouseY-p1.y)*(mouseY-p1.y))<400){
+    p1.x=mouseX
+    p1.y=mouseY
+    background(150)
+    point(p1.x,p1.y)
+    point(p2.x,p2.y)
+    point(p3.x,p3.y)
+ 
+} else if (mouseIsPressed && ((mouseX-p2.x)*(mouseX-p2.x))+((mouseY-p2.y)*(mouseY-p2.y))<400) {
+    p2.x=mouseX
+    p2.y=mouseY
+    background(150)
+    point(p1.x,p1.y)
+    point(p2.x,p2.y)
+    point(p3.x,p3.y)
+} else if (mouseIsPressed && ((mouseX-p3.x)*(mouseX-p3.x))+((mouseY-p3.y)*(mouseY-p3.y))<400){
+    
+    p3.x=mouseX
+    p3.y=mouseY
+    background(150)
+    point(p1.x,p1.y)
+    point(p2.x,p2.y)
+    point(p3.x,p3.y)
+    
+    
+} else {
+    
+                for(t=0;t<1;t+=0.001){
+
+            //background(150);
+            strokeWeight(1);
+            stroke(0);
+            //t += 0.001
+//            line(p1.x,p1.y,p2.x,p2.y)
+//            line(p2.x,p2.y,p3.x,p3.y)
+////            line(q1.x+p1.x,q1.y+p1.y,q2.x+p2.x,q2.y+p2.y)
+            strokeWeight(5);
+            stroke(0);
+            point(p1.x,p1.y)
+            point(p2.x,p2.y)
+            point(p3.x,p3.y)
+            strokeWeight(0.5);
+            Move_q1();
+            stroke(40,40,200);
+//            point(q1.x+p1.x,q1.y+p1.y)
+            Move_q2();
+//            point(q2.x+p2.x,q2.y+p2.y)
+            Move_c1();
+            stroke(200,40,40)
+            point(c1.x,c1.y)
+            console.log("x: "+c1.x+"   y: "+c1.y)
+            }
+    
+    
+}
+            
+            
+        }        
+        
+        
+        
+        
+        
+        function Move_q1(){
+            q1.x = t*(p2.x-p1.x)
+            q1.y = t*(p2.y-p1.y)
+        }
+        
+        
+        function Move_q2(){
+            q2.x = t*(p3.x-p2.x)
+            q2.y = t*(p3.y-p2.y)
+        }
+        
+        function Move_c1(){
+            c1.x = p1.x + q1.x + t*((q2.x+p2.x)-(q1.x+p1.x))
+            c1.y = p1.y + q1.y + t*((q2.y+p2.y)-(q1.y+p1.y))
+        }
+
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 10; margin: 10;} </style>
+  </head>
+  <body>
+      <h1>Quadratic Bezier Curve Generator</h1>
+      <h2>By Daniel Ghasemfar</h2>
+      <h3>Move the points around with your pointer to generate any quadratic bezier</h3>
+  </body>
+</html>

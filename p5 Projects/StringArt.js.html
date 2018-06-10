@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	  
+	var img;
+	var centery;
+	var centerx;
+	var Points
+		
+	function preload(){
+	img = loadImage('DG.jpg')	
+	}	
+	
+	function setup(){
+		createCanvas(img.width,img.height)
+		background(150)
+		image(img, 300, 300, img.width/2, img.height/2)
+		centerx = 300+img.width/4
+		centery = 300+img.height/4
+
+	}
+		
+	function draw(){
+		
+	}
+		
+	function returnImageXY(a){
+		var p[][];
+		for (i=0, i<=img.pixels.length, i+=4){
+			RGB = {r:[i], g:pixels[i+1], b:pixels[i+2]}
+			p[floor(i/a.width)]
+		}
+	} 
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

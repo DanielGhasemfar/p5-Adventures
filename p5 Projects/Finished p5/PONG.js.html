@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+        var pos;
+        var vel;
+        var length = 100;
+        var playerY=500;
+        var thick = 40;
+        var offset = 20;
+        var diameter = 50;
+        var points = 0;
+        var opponantY = 500;
+        var opponantSpeed = 3;
+        
+      function setup(){
+          createCanvas(1000,700);
+          pos = createVector(random(width/2)+width/4,random(height/2)+height/4);
+          vel = createVector(random(-30,30),random(-5,5));
+      }
+        
+    function draw(){
+        moveAndBounce();
+        background(0);
+        movePlayer();
+        moveOpponant();
+        noStroke()
+        fill(200,40,40);
+        ellipse(pos.x,pos.y,diameter,diameter);
+        fill(150);
+        rect(offset,playerY,thick,length);
+        rect(width-offset-thick,opponantY,thick,length);
+        text("Points: "+points,900,50);
+    }
+    
+    function moveAndBounce(){
+        pos = p5.Vector.add(pos,vel);
+        if (pos.x<diameter/2){
+          pos = createVector(random(width/2)+width/4,random(height/2)+height/4)
+          vel = createVector(random(-30,30),random(-10,10))
+        points+= -1
+        }
+        
+        if (pos.x>width-diameter/2){
+          pos = createVector(random(width/2)+width/4,random(height/2)+height/4)
+          vel = createVector(random(-30,30),random(-10,10))
+        points+=1
+        }
+        
+        //y bounce
+         if (pos.y>height-diameter/2 || pos.y<diameter/2){
+            vel.y=vel.y*-1
+        }
+        
+        //player bounce
+        if(pos.y>playerY-diameter/2 && pos.y<playerY+length+diameter/2 && pos.x<=thick+offset+diameter/2 && pos.x>(thick+offset+diameter/2)-11) {
+            vel.x=vel.x*-1
+            
+        }
+        
+        
+        //opponent bounce
+        if(pos.y>opponantY-diameter/2 && pos.y<opponantY+length+diameter/2 && pos.x<=width-(thick+offset+diameter/2) && pos.x>=width-(thick+offset+diameter/2)-11) {
+            vel.x=vel.x*-1
+            
+        }
+        
+    }
+        
+    function movePlayer(){
+                if (keyIsDown(87)){
+            if (playerY<0){
+                
+            } else {playerY=playerY-10
+                   }
+        }
+        
+        if (keyIsDown(83)){
+            if (playerY>height-length){
+                
+            } else {
+                   
+            playerY+=10;
+        }
+        }
+    }
+        
+    function moveOpponant(){
+        if (pos.y<opponantY+length && pos.y>opponantY){
+            
+        } else {
+        if(pos.y<opponantY){
+            opponantY= opponantY-opponantSpeed;
+        } else if (pos.y>opponantY-length){
+            opponantY+=opponantSpeed;
+        }
+        }
+        
+    }
+
+        
+    
+        
+
+      
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+      <H1>Pong</H1>
+      <H2>By Dadmehr Ghasemfar</H2>
+  </body>
+</html>

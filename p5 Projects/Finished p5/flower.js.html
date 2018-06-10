@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+        var size;
+function setup() {
+  createCanvas(1000, 600);
+background(00); 
+  angleMode(DEGREES);
+    
+    slider = createSlider(0, 20, 100);
+  slider.position(10, 10);
+  slider.style('width', '800px');
+
+}
+
+function draw() {
+    background(00); 
+    pet = slider.value();
+    flowr(300,400,pet,100);
+    //flowr(random(0,1000),random(0,600),4,50);
+
+}
+        
+        
+function flowr(x,y,petals,radius){
+        translate(x,y); 
+    for (I=0; I<=360; I+=360/petals) {
+    rotate(360/petals)
+    //line(0,0,flower.radius,0);
+        fill(204,204,0);
+        var p=radius*sin(180/petals)
+ ellipse(radius,0,p*2,p*2);
+    }
+    resetMatrix()
+    translate(x,y); 
+    fill(40,170,20)
+    rect(0,0,radius/10,5*radius)
+    fill(150,150,0)
+    ellipse(0,0,2*radius,2*radius)
+    resetMatrix()
+    
+}
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

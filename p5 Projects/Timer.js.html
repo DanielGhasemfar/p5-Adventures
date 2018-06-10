@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	  
+		
+		
+		var go = false
+		var startTime;
+		
+		
+		var TotallHours
+		var TotallMins
+		var TotallSecs
+		var TotallTime
+		var TotallMillis
+		
+
+		
+
+	  	function setup(){
+			// For the future I might think of making the screen size proportional to your device
+		  createCanvas(1000,1000)
+			//pixelDensity(0.25)
+			a = { r:random(255), g:random(255), b:random(255)}
+			b = { r:random(255), g:random(255), b:random(255)}
+			c = { r:random(255), g:random(255), b:random(255)}
+		  
+		var TotallHours = document.getElementById("Hours").value
+		var TotallMins = document.getElementById("Minutes").value
+		var TotallSecs = document.getElementById("Seconds").value
+		var TotallTime = 60*60*TotallHours+60*TotallMins+TotallSecs
+		var TotallMillis = 1000*TotallTime
+			
+	  }
+		
+	  
+		
+		function draw(){
+			time = millis() - startTime
+
+			console.log(millis())
+		var TotallHours = document.getElementById("Hours").value
+		var TotallMins = document.getElementById("Minutes").value
+		var TotallSecs = document.getElementById("Seconds").value
+		var TotallTime = 60*60*TotallHours+60*TotallMins+TotallSecs
+		var TotallMillis = 1000*TotallTime
+			
+if(go){
+			
+			noStroke();
+			
+			background(0)
+			translate(width/2,height/2);
+			//ellipse(0,0,600,600)
+			
+			r = 2*PI*(time/TotallMillis)
+			fill(a.r,a.g,a.b)
+			arc(0,0,600,600,0,r)
+			
+			fill(0)
+			ellipse(0,0,400,400)
+			
+			r = 2*PI*(time*5/TotallMillis)
+			fill(b.r,b.g,b.b)
+			arc(0,0,400,400,0,r)
+			
+			
+			fill(0)
+			ellipse(0,0,200,200)
+			
+			r = 2*PI*(time*25/TotallMillis)
+			fill(c.r,c.g,c.b)
+			arc(0,0,200,200,0,r)
+			
+			if (time >= TotallMillis){
+				background(255,0,0);
+				var x = document.getElementById("myAudio")
+			//background(255,0,0)
+				background(0)
+				
+				fill(a.r,a.g,a.b)
+			ellipse(0,0,600,600)
+				
+				fill(b.r,b.g,b.b)
+			ellipse(0,0,400,400)
+				
+				fill(c.r,c.g,c.b)
+			ellipse(0,0,200,200)
+				
+			x.play()
+
+				
+				noLoop();
+			}
+} else {
+	background(0)
+}
+		}
+		
+		
+	  function start(){
+		  go = true
+		  startTime = millis()
+		  
+
+ }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+	  <h1>Daniels Timer</h1>
+	  
+	  
+	  <audio id="myAudio">
+  <source src="http://www.soundjay.com/button/beep-07.wav" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+	  
+	  
+	  <p>
+	  Hours
+	  <input type="number" id="Hours">
+	  
+	  Minutes
+	  <input type="number" id="Minutes">
+	  
+	  Seconds
+	  <input type="number" id="Seconds">
+	  
+		  <button onclick="start()">Start Timer</button>
+		  
+		  <br></p>
+	  
+
+
+	  
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+
+        n=9;
+        var speedSlider
+        
+      function setup(){
+          createCanvas(600,600);
+          background(150);
+          angleMode(DEGREES);
+          
+          speedSlider = createSlider(0, 60, 20);
+          speedSlider.position(20, height-100);
+      }
+      
+    
+      function draw(){
+          resetMatrix()
+          var speed = speedSlider.value()
+          text("speed",20,speedSlider.x-40)
+          background(150)
+          frameRate(speed)
+          translate(width/2,height/2);
+          for(j=1;j<=n;j++){
+              rotate(360/n)
+              fill(150,40,40)
+              rect(12*n,0,40,80)
+          }
+          for(i=1;i<=frameCount%n-1;i++){
+              rotate(360/n);
+          }
+          fill(190,40,40)
+          rect(12*n,0,45,85)
+          rotate(360/n)
+          fill(230,40,40)
+          rect(12*n,0,50,90)
+          rotate(360/n)
+          fill(190,40,40)
+          rect(12*n,0,45,85)
+          console.log(frameCount)
+      }    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+      <h1>Loading Sign</h1>
+  </body>
+</html>

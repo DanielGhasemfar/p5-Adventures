@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script> 
+      
+        
+      var B = []
+      B[0] = 1
+      var i = 0
+      var s
+      var v=0
+        
+    function setup(){
+        createCanvas(600,600)
+        background(150)
+        
+    }
+        
+        
+    function draw(){
+        frameRate(10)
+        i++
+        s=0
+        for (j=0;j<i;j++){
+            s=s-choose(i+1,j)*B[j]
+        }
+        s=s/choose(i+1,i)
+        B[i]=s
+        //console.log(B[i])
+        if (keyIsPressed === true){
+            v++
+            if (v%2 === 1){
+                console.log("B["+v+"] = 0")
+            } else {console.log("B["+v+"] = "+B[v])}
+        }
+    }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      function factorial(n){
+          if (n===0){
+              return 1
+          }
+          return n*factorial(n-1)
+      }
+        
+        
+        
+    function choose(n,k){
+        return factorial(n)/(factorial(k)*factorial(n-k))
+    }
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+      Go to console
+  </body>
+</html>

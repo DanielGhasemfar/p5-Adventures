@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+        
+        
+        
+        var TestCard = {x:100, y:100, colour:"black", number:9, power:"select"}
+        const sqrt2 = 1.41421356237
+        var MyCards = []
+        var EnemyCards = []
+        var CurrentCard
+        var TouchedCard
+        var StartingNumber = 6
+        var MyCardsCount = StartingNumber
+        var GameCounter = 0
+        var ButtonX = 800
+        var ButtonY = 500
+        
+        function setup(){
+            createCanvas(900,600);
+            angleMode(DEGREES)
+            CurrentCard=RandomCard()
+            TakeMyCards();
+            TakeEnemyCards();
+        }
+        
+        
+        
+        function draw(){
+            background(150);
+            
+            fill(255)
+            textSize(30)
+            stroke(255)
+            if(GameCounter%2===1){
+            text("Computers Turn",500,20,100,100)
+            } else{
+            text("My Turn",500,20,100,100)
+            }
+            
+            ellipse(ButtonX,ButtonY,50,50)
+            
+            DrawMyHand();
+            DrawCurrent();
+            DrawEnemyHand();
+            EnemyPlay();
+            DrawCurrent()
+            
+            frameRate(10);
+
+        }
+        
+        function EnemyPlay(){
+            
+            // This is where you can mess around with the AI and make your opponent play differently
+            if(GameCounter%2 === 1){
+                
+                for(i=0;i<=EnemyCards.length-1;i++){
+                    if(EnemyCards[i].colour==CurrentCard.colour && EnemyCards[i].power=="none"){
+                        CurrentCard = EnemyCards[i]
+                        EnemyCards.splice(i,1)
+                        GameCounter++
+                        return}}
+                
+                for(i=0;i<=EnemyCards.length-1;i++){
+                    if(EnemyCards[i].number==CurrentCard.number && EnemyCards[i].power=="none"){
+                        CurrentCard = EnemyCards[i]
+                        EnemyCards.splice(i,1)
+                        GameCounter++
+                        return}}
+                
+                for(i=0;i<=EnemyCards.length-1;i++){
+                    if(EnemyCards.colour==CurrentCard.colour){
+                        CurrentCard = EnemyCards[i]
+                        EnemyCards.splice(i,1)
+                        GameCounter++
+                        Powers()
+                        return}}
+                
+                
+                for(i=0;i<=EnemyCards.length-1;i++){
+                    if(EnemyCards.power==CurrentCard.power && EnemyCards[i].power!=="none"){
+                        CurrentCard = EnemyCards[i]
+                        EnemyCards.splice(i,1)
+                        GameCounter++
+                        Power()
+                        return}}
+                
+                G=RandomCard()
+                EnemyCards.push(G)
+                GameCounter++
+                return
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                }}
+            
+            
+            
+            
+            
+            
+        
+        
+        
+        
+        function CanBePlayed(a,b){
+            // a is the CurrentCard and b is the card being played
+            if(a.colour === "black"){
+                Selection()
+            } else {
+            if (b.colour==="black" || b.colour===a.colour || b.number===a.number){
+                return true
+            } else{
+                if(a.power !== "none" && b.power === a.power && a.colour !== b.colour){
+                    return true
+                } else{
+                return false
+                }
+            }
+            }
+
+        }
+        
+        
+        
+        
+        function DrawEnemyHand(){
+            
+            for(g=0;g<=EnemyCards.length-1;g++){
+                EnemyCards[g].x = g*70+5
+                EnemyCards[g].y = 10
+                
+                  UnoCard(EnemyCards[g])
+//                fill(255)
+//                rect(g*70+3,8,64,104)
+//                fill(0)
+//                rect(g*70+5,10,60,100)
+//                fill(255)
+//                textSize(20)
+//                stroke(255)
+//                text("UNO",g*70+15,50,40,40)
+            }
+            
+
+        }
+        
+        
+        
+        
+        function DrawCurrent(){
+            fill(200)
+            ellipse(width/2,height/2,200)
+            CurrentCard.x=width/2-30
+            CurrentCard.y=height/2-50
+            E=CurrentCard
+            UnoCard(E)
+  
+        }
+        
+        
+        
+        
+        function DrawMyHand(){
+            for(p=0;p<=MyCards.length-1;p++){
+                MyCards[p].x = 5+p*70
+                MyCards[p].y = height-100-5
+            }
+            
+            for(j=0;j<=MyCards.length-1;j++){
+                UnoCard(MyCards[j])
+            }
+        }
+        
+        
+        
+        
+        function TakeMyCards(){
+            for(i=0;i<=StartingNumber-1;i++){
+                C=RandomCard()
+                MyCards.push(C)
+            }
+        }
+        
+        
+    
+        
+        function TakeEnemyCards(){
+            for(i=0;i<=StartingNumber-1;i++){
+                F=RandomCard()
+                EnemyCards.push(F)
+            }
+            
+        }
+        
+        
+        
+        function RandomCard(){
+            
+            if(random(1)<0.95){
+            colours = ["red", "green", "blue", "yellow"]
+            powers = ["block","reverse","+2"]
+            color=random(colours)
+            } else {
+                color="black"
+                nimber="none"
+            }
+            
+            
+            
+            
+            
+            if(color == "black"){
+                if(random(1)<0.6){
+                    piwer = "select"
+                } else{ piwer = "ultimate"}
+            } else{
+                piwer = "none"
+                if(random(1)<0.8){
+                    nimber=floor(random(0,10))
+                } else{
+                    piwer=random(powers)
+                    nimber="none"
+                }
+            }
+            
+            
+            X=random(0,width-60)
+            Y=random(0,height-100)
+            
+            
+            return {x:X, y:Y, colour:color, number:nimber, power:piwer}
+            
+        }
+        
+        
+        
+        function mouseReleased(){
+            for(j=0;j<=MyCards.length-1;j++){
+                if(sqrt((MyCards[j].x-mouseX)*(MyCards[j].x-mouseX)+(MyCards[j].y-mouseY)*(MyCards[j].y-mouseY))<7.5 && GameCounter%2===0){
+                    if(CanBePlayed(CurrentCard,MyCards[j])===true){
+                        CurrentCard=MyCards[j]
+                        MyCards.splice(j,1)
+                        MyCardsCount--
+                        DrawCurrent()
+                        
+                        GameCounter++
+    
+                    }
+                }
+            }
+            
+            if((mouseX-ButtonX)*(mouseX-ButtonX)+(mouseY-ButtonY)*(mouseY-ButtonY)<25*25){
+                console.log("Add Cards")
+                G=RandomCard()
+                MyCards.push(G)
+                GameCounter++
+            }
+        }
+        
+        
+        
+        
+        function UnoCard(a){
+            fill(255)
+            rect(a.x-2,a.y-2,64,104)
+            
+            
+            if(a.colour === "red"){
+                fill(240,20,20)
+            } 
+            if(a.colour === "blue"){
+                fill(20,20,240)
+            }
+            if(a.colour === "yellow"){
+                fill(240,240,20)
+            }
+            if(a.colour === "green"){
+                fill(20,240,20)
+            }
+            if(a.colour === "black"){
+                fill(0,0,0)
+            }
+            rect(a.x,a.y,60,100)
+            
+            if(a.power === "none"){
+            fill(255)
+            textSize(60)
+            text(a.number,a.x+15,a.y+15,45,85)
+            }
+            
+            if(a.power === "+2"){
+                fill(255)
+                textSize(35)
+                text("+2",a.x+15,a.y+30,45,70)
+            }
+            
+            if(a.power === "block"){
+                stroke(255)
+                strokeWeight(8)
+                ellipse(a.x+30, a.y+50, 40)
+                line(a.x+30 - 20/sqrt2, a.y+50+20/sqrt2, a.x+30 + 20/sqrt2, a.y+50-20/sqrt2)
+                strokeWeight(1)
+                stroke(0)
+            }
+            
+            if(a.power === "select"){
+                fill(255)
+                ellipse(a.x+30,a.y+50,50)
+                //noStroke()
+                fill(240,20,20)
+                arc(a.x+30,a.y+50,45,45,0,90,PIE)
+                fill(20,240,20)
+                arc(a.x+30,a.y+50,45,45,90,180,PIE)
+                fill(240,240,20)
+                arc(a.x+30,a.y+50,45,45,180,270,PIE)
+                fill(20,20,240)
+                arc(a.x+30,a.y+50,45,45,270,360,PIE)
+            }
+            
+            if(a.power === "ultimate"){
+                fill(255)
+                ellipse(a.x+30,a.y+50,50)
+                //noStroke()
+                fill(240,20,20)
+                arc(a.x+30,a.y+50,45,45,0,90,PIE)
+                fill(20,240,20)
+                arc(a.x+30,a.y+50,45,45,90,180,PIE)
+                fill(240,240,20)
+                arc(a.x+30,a.y+50,45,45,180,270,PIE)
+                fill(20,20,240)
+                arc(a.x+30,a.y+50,45,45,270,360,PIE)
+                textSize(10)
+                fill(255)
+                text("+4",a.x+45,a.y+5,20,15)
+            }
+            
+            if(a.power === "reverse"){
+                fill(255)
+                noStroke()
+                rect(a.x+15,a.y+45,30,10)
+                triangle(a.x+15+30, a.y+35+5, a.x+25+30, a.y+45+5, a.x+15+30, a.y+55+5)
+                triangle(a.x+15, a.y+45-5, a.x+5, a.y+45+5, a.x+15, a.y+55+5)
+            }
+            
+            fill(240,20,240)
+            stroke(255)
+            ellipse(a.x,a.y,15)
+            
+        }
+        
+        
+        function Powers(){
+            if (CurrentCard.power!== "none"){
+                if(GameCounter%2==0){
+                    // Your power card
+                } else {
+                    // Enemy Power card
+                    if(CurrentCard.power=="+2"){
+                        G=RandomCard
+                        H=RandomCard
+                        MyCards.push(G)
+                        MyCards.push(H)
+                    }
+                }
+            }
+        }
+        
+        
+        
+//        Algorithm: See if you have a powers card that is the same colour. If so, place it. If not, see if you have a number card of the                      same number, if so, place it. If not, see if you have a black select card. If so then place it. If not, then check                        if you have a black ultimate card. If not, than take a random card. (power, colour, black, take)
+//        
+//        Arrays and Objects:    I will need a MyCards array. I will need a EnemyCards array. I will need a current card object. I will                                    check MyCards[] to find if a card is touching the mouse, and that will be the TouchedCard object card.
+        
+        
+        // Whats Left: Implement the algorithm in one function, Splice enemies card from EnemyCards, Make CurrentCard that new card, Add a turn counter, If turn counter is odd/even and CurrentCard.power is +2 then add two random cards to enemy/my cards and vice versa.
+        
+        // For colour selecting cards, I will have to somehow think of a way to input R G B Y into the game.
+        
+        
+        
+//        For loops instead of one for loop
+        
+        
+        
+        
+        
+        
+//        function EnemyPlay(){
+//            
+//            // This is where you can mess around with the AI and make your opponent play differently
+//            if(GameCounter%2 === 1){
+//
+//            for(v=0;v<=EnemyCards.length-1;v++){
+//                if(CurrentCard.colour === EnemyCards[v].colour && EnemyCards[v].power === "none"){
+//                    CurrentCard = EnemyCards[v]
+//                    EnemyCards.splice(v,1)
+//                    GameCounter++
+//                    return
+//                } else {
+//                    if (EnemyCards[v].number === CurrentCard.number && EnemyCards.power === "none") {
+//                    CurrentCard = EnemyCards[v]
+//                    EnemyCards.splice(v,1)
+//                    GameCounter++
+//                    return
+//                } else {
+//                    if(CurrentCard.power === EnemyCards[v].power && EnemyCards.power !== "none"){
+//                    CurrentCard = EnemyCards[v]
+//                    EnemyCards.splice(v,1)
+//                    GameCounter++
+//                    return
+//                } else {
+//                    if(EnemyCards[v].colour === "black"){
+//                    CurrentCard = EnemyCards[v]
+//                    EnemyCards.splice(v,1)
+//                    GameCounter++
+//                    return
+//                } else {
+//                    G=RandomCard()
+//                    EnemyCards.push(G)
+//                    GameCounter++
+//                    return
+//                }
+//                } 
+//                }
+//                }
+//                }
+//                }
+//                }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

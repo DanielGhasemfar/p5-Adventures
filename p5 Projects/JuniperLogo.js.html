@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	  
+	
+	  var n = 6 // DANIEL IS GAY
+	  var r = 300
+	  var t = -100
+	  var bob = 0
+	  var spin = 0
+		
+		
+		
+	  function setup(){
+		  createCanvas(1000,1000)
+	  }
+		
+	  function draw(){
+		  //t++
+		  bob++
+		  //spin++
+		  frameRate(7)
+		  resetMatrix()
+		  translate(500,450)
+		  angleStep = ((360/n)/(360))*(TWO_PI)
+		  rotate(angleStep/2 + spin)
+		  background(250)
+		  
+		  Tstep = 360/n
+		  
+		  for(theta=0; theta<360; theta+=Tstep){
+			  if(theta/Tstep == bob%n){
+				  fill(255,0,0,100)
+			  } else {
+				  fill(128,128,128,100)
+			  }
+			  angleStep = (Tstep/(360))*(TWO_PI)
+			  rotate(angleStep)
+			  diameter = 2*r*sin(PI/n)
+			  distance = r*cos(PI/n)
+			  noStroke()
+			  arc(distance,0,diameter,diameter, -PI/2, PI/2)
+			  t = diameter + 20
+			  triangle(distance,-diameter/2, distance, diameter/2, -t,0)
+		  }
+		  
+		  
+	  }
+	  
+	  
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

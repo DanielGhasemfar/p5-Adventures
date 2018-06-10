@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+        
+        var length = 600
+        var TestQuad = {a:-0.001, b:-1, c:-100, x1:-300, x2:300}
+        var TestP1 = {x:200, y:100}
+        var Points =[]
+        
+        
+        function setup(){
+        createCanvas(1000,1000)    
+            
+        }
+        
+        function draw(){
+        background(100)
+        translate(length/2,length/2)
+        line(-length,0,length,0)
+        line(0,-length,0,length)
+
+            //line(TestQuad.x1,-1000,TestQuad.x1,1000)
+            //line(TestQuad.x2,-1000,TestQuad.x2,1000)
+            //DrawQuad(TestQuad)
+            //DrawPoints(Points)
+            DrawPoints();
+        
+            
+            if(Points.length>3){
+                DrawSpline()
+                }
+        }
+        
+        
+        
+        
+        function DrawQuad(Q){
+            for(x=Q.x1-1;x<=Q.x2;x+=0.01){
+                y=Q.a*x*x+Q.b*x+Q.c
+                stroke(20,20,240)
+                //strokeWeight(10)
+                point(x,-1*y)
+                stroke(0)
+            }
+        }
+        
+        function mouseReleased(){
+            d=mouseX-300
+            e=mouseY-300
+            G={x:d, y:-1*e}
+            Points.push(G)
+        }
+        
+        function SolveQuad(X1,y1,X2,y2,S){
+            DeltaX=X1-X2
+            DeltaY=y1-y2
+            A = ((DeltaY)-S*(DeltaX))/((X1*X1-X2*X2)-2*X1*(DeltaX))
+            B = S-2*A*X1
+            C = y2-B*X2-A*X2*X2
+            T = {a:A, b:B, c:C, x1:X1, x2:X2}
+            return T
+        }
+        
+        function DrawSpline(){
+            stroke(20,20,240)
+            line(Points[0].x, -1*Points[0].y, Points[1].x, -1*Points[1].y)
+            Slope = (Points[1].y-Points[0].y)/(Points[1].x-Points[0].x)
+            for(i=1;i<=Points.length-2;i++){
+            F = SolveQuad(Points[i].x , Points[i].y , Points[i+1].x , Points[i+1].y , Slope)
+            Slope = 2 * F.a*Points[i+1].x+F.b
+            DrawQuad(F)
+            }
+        }
+        
+
+        function DrawPoints(){
+                        for(i=0;i<=Points.length-1;i++){
+                stroke(240,20,20)
+                strokeWeight(5)
+                point(Points[i].x,-1*Points[i].y)
+                //console.log("("+Points[i].x+","+Points[i].y)
+                strokeWeight(1)
+                stroke(0)
+                
+            }
+        }
+        
+        
+        
+        
+        
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

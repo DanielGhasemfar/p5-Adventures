@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+        
+        var pls;
+        
+      function setup(){
+          createCanvas(1000,800);
+          background(150);
+          
+          ball = {x:Math.random()*width, y:Math.random()*height, Vx:random(-2,2), Vy:random(-2,2), isBlack:true};
+            }
+        
+        function draw(){
+            
+            
+            background(150);
+            ball.x=ball.x+ball.Vx;
+            ball.y=ball.y+ball.Vy;
+            
+            if (ball.x > width-25  || ball.x <=25) {
+                ball.Vx=ball.Vx*-1 ;
+            }
+            
+            if (ball.y >= height-25 || ball.y <=25) {
+                ball.Vy=ball.Vy*-1 ;
+            }
+            
+            
+            if (ball.isBlack==true){
+                fill(190,40,120);
+            } else {
+                fill(255,150,150);
+            }
+            noStroke();
+            ellipse(ball.x, ball.y, 50, 50);
+            console.log("draw!");
+            
+            }
+        
+        function mousePressed() {
+            if (Math.sqrt(Math.pow(ball.x-mouseX, 2)+Math.pow(ball.y-mouseY,2)) <=25) {
+
+            ball.isBlack = !ball.isBlack ;
+            }
+        }
+      
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

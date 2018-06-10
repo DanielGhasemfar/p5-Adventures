@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+		
+	  var img
+	  var x_scale,y_scale
+	  var t=100
+	  
+
+	  function preload(){
+		  pixelDensity(1)
+		//img = loadImage('Portrait.jpeg')	
+		  //img = loadImage('2018.jpeg')
+		  //img = loadImage('SpanishFlag.png')
+		  //img = loadImage('colour2018.jpeg')
+		  //img = loadImage('road.jpeg')
+		  img = loadImage('Daniel.jpeg')
+		  //img = loadImage('SeaPort.jpeg')
+		  //img = loadImage('RandomNoise.jpeg')
+	  }	
+		
+
+	  function setup(){
+		createCanvas(1000,1000)
+		//image(img, 0, 0, 1000, 1000)
+		   slider = createSlider(0, 10, 0);
+  		   slider.position(10, 10);
+  		   slider.style('width', '800px');
+		   rectMode(CENTER)
+		  
+	  }
+
+	  function draw(){
+		  t += -1
+		  if(t<=0){
+			  t+=2
+		  }
+		  noStroke();
+//		  background(255)
+//		  image(img, 0, 0, 1000, 1000)
+		  for(i=0;i<=100;i++){
+			  x=random(width)
+			  y=random(height)
+			  //colour = img.get(x/x_scale,y/y_scale)
+			  colour = img.get(x,y)
+			  //colour = img.get(x,y)
+			  colour[3] = 100
+			  fill(colour)
+			  radius = random(t) +5
+			  radius2 = random(t) +5
+			  //radius = t +5
+			  //radius = random(10)
+			  ellipse(x,y,radius,radius)
+			  //rect(x,y,radius,radius2)
+		  }
+      }
+		
+	   function mouseReleased(){
+		   background(255)
+		   x_scale = slider.value();
+	   }
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

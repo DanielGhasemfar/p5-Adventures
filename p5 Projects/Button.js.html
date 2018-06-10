@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+        var on=false;
+        
+        function setup(){
+            createCanvas(1000,800);
+            background(150);}
+        
+        function draw(){
+            noStroke();
+            if (on==true) {
+              background(150);} else {background(40,200,40);}
+            var distance=(sqrt(pow(mouseY-400,2)+pow(nouseX-500,2))
+          //  if ( distance <= 25) {
+               // fill(0,200,0,200);} else{fill(190,0,40,200);}
+            
+            ellipse(500,400,50,50);
+        }
+            
+            function mousePressed() {
+                var distance=(sqrt(pow(mouseY-400,2)+pow(nouseX-500,2))
+                if (distance < 25) {
+                on=!on;}
+            }
+                // &&=and, ||=or, !=not
+                
+            
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+        
+       var x=0;
+       var v;
+       var err = 2;
+       var IntErr = 0;
+        var t=0;
+        
+        var sliderP;
+        var sliderI;
+        var sliderD;
+        
+        
+        
+        
+      function setup(){
+          createCanvas(600,600);
+          background(150);
+          rectMode(CENTER)
+          
+          sliderP = createSlider(0, 1, 0, 0);
+          sliderI = createSlider(0, 1, 0, 0);
+          sliderD = createSlider(0, 1, 0, 0);
+          
+          sliderP.position(10, 300);
+          sliderI.position(10, 320);
+          sliderD.position(10, 340);
+      }
+        
+        
+        
+        
+        
+       function draw(){
+           
+           if (keyIsPressed === true){
+               x=0;
+               t=0;
+               IntErr=0;
+               err=0;
+               oldErr=0;
+           } else {
+           
+           fill(0, 100, 160);
+           textSize(32);
+           text(err, 100, 60);
+           t += 0.01
+           frameRate(30)
+           background(150) 
+           stroke(200,40,40);
+           line(400,200,400,500);
+           fill(200);
+           noStroke();
+           
+           oldErr=err
+           err = 400-x
+           console.log(err)
+           IntErr = IntErr+err*0.01
+           DervErr = oldErr/err
+           x += sliderP.value() * err + sliderI.value() * IntErr + sliderD.value() * DervErr
+           x += -5*t
+           rect(x,300,40,40);
+           }
+        
+      }
+        
+        
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <title> Daniel Ghasemfar </title>
+  <head> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+        
+		var Canvas;
+		
+        
+        function setup(){
+    Canvas = createCanvas(windowWidth,windowHeight);
+			Canvas.position(0,0)
+			Canvas.style('z-index', '-1')
+    background(200); };
+
+function draw(){
+	
+    var Dot = {
+    x:random(0,width),
+    y:random(0,height),
+    radius:random(25,100) };
+    
+    var colour = {    
+    red:map(Dot.x,0,width,70,255)+random(-5,5),
+    blue:map(Dot.x,0,width,255,120)+random(-5,5),
+    };
+    
+noStroke();
+fill(colour.red,0,colour.blue,100);
+ellipse(Dot.x,Dot.y,Dot.radius,Dot.radius);
+    
+    
+};
+		
+		function windowResized() {
+console.log("resized")
+  resizeCanvas(windowWidth, windowHeight);
+}
+      
+      </script>
+      <h1> Daniel Ghasemfar </h1>
+   
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 100; margin: 0;} 
+	  h1 {text-align:center;}
+	  </style>
+  </head>
+  <body>
+  </body>
+</html>

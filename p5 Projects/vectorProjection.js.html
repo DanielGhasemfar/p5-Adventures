@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	  
+		v1 = {x:3, y:4}
+		v2 = {x:3, y:-3}
+		Size = 80
+		
+	function setup(){
+		createCanvas(1000,1000)
+		
+		
+	  }
+		
+	function draw(){
+		translate(width/2,height/2)
+		background(230)
+		strokeWeight(4)
+		stroke(0)
+		line(-width/2, 0, width/2, 0)
+		line(0, -width/2, 0, width/2)
+		strokeWeight(1)
+		for(x=0; x<= width/2; x+=Size){
+			line(x,-height/2,x,height/2)
+			line(-x,height/2,-x,-height/2)
+		}
+		
+		for(y=0; y<= height/2; y+=Size){
+			line(-width/2, y, width/2, y)
+			line(-width/2, -y, width/2, -y)
+		}
+		
+		if(mouseDistance(v1)<20 && mouseIsPressed){
+		v1 = {x:(mouseX-width/2)/Size, y:-(mouseY-height/2)/Size}
+		}
+		
+		if(mouseDistance(v2)<20 && mouseIsPressed){
+		v2 = {x:(mouseX-width/2)/Size, y:-(mouseY-height/2)/Size}
+		}
+		
+		drawVector(v1,230,0,0,true)
+		drawVector(v2,0,230,0,true)
+		
+		v3 = scalarMult(dotProduct(v1,v2)/(magVectorSqr(v2)),v2,false)
+		
+		drawVector(v3,0,0,230)
+		
+		v4 = vectorSubtract(v1,v3,false)
+		
+		drawVector(v4, 150, 150, 0)
+		
+		console.log(mouseDistance(v2))
+
+	  }
+		
+		function drawVector(a,r,g,b,bla){
+			stroke(r,g,b)
+			strokeWeight(4)
+			consta = width/Size
+			line(0,0,a.x*Size,-a.y*Size)
+			if(bla){
+				ellipse(a.x*Size,-a.y*Size,10)
+			}
+			
+		}
+		
+		function dotProduct(a,b){
+			return a.x*b.x + a.y*b.y
+		}
+		
+		function magVectorSqr(a){
+			return (a.x*a.x+a.y*a.y)
+		}
+		
+		function scalarMult(a,b){
+			b = {x:b.x*a, y:b.y*a}
+			return b
+		}
+		
+		function vectorSubtract(a,b){
+			a = {x: a.x-b.x, y: a.y-b.y}
+			return a
+		}
+		
+		function mouseDistance(a){
+			d = Math.sqrt(Math.pow((a.x*Size-(mouseX-width/2)),2) + Math.pow((a.y*Size+(mouseY-height/2)),2))
+			return d
+		}
+	  
+	  
+	  
+	  
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

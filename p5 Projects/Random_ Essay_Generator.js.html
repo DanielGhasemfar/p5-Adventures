@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+      
+      var vowels= ["a","e","i","o","u","y"]
+      var constonants = ["b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w"]
+      var common = ["a","to","me","nose","he","she","be","at","we","so"]
+      var dot = ["","","",".","",""]
+      
+      
+      
+      
+      function setup(){
+          createCanvas(600,600);
+          background(200)
+          textSize(30)
+      }
+        
+      function draw(){
+          var tex = "A"
+          for (x=0;x<20;x++){
+              tex = tex + RandWord(floor(random(0,10)))
+              tex = tex + " "+random(common)
+              tex = tex + random(dot)+" "}
+          
+          text(tex+".",10,10,600,600);
+          noLoop()
+      }
+
+        
+        
+        
+        
+        
+        
+     function RandWord(i){
+         var a = " "
+            for(j=0;j<=i/2;j++){
+            p=random(constonants)
+             a = a.concat(p)
+            p=random(vowels)
+             a = a.concat(p)
+            }
+                 return a
+     }   
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	
+var mic;
+
+function setup() {
+ createCanvas(1000, 1000)
+  mic = new p5.AudioIn()
+  mic.start()
+}
+
+function draw() {
+  var vol = mic.getLevel();
+  console.log(vol)
+  ellipse(500, 500, vol*50+20, vol*50+20);
+}
+	
+	</script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+	  
+		
+		xNum = 30
+		yNum = 30
+		Next = 0
+		FileName = "IronMan"
+		
+		//var fs = require("fs");
+		var FileObject
+
+		
+		
+	  	function preload(){
+			img = loadImage('IronMan.jpeg')
+		}
+		
+		function setup(){
+			createCanvas(1000,1000)
+			rectMode(CORNER)
+			Rects = TwoDArray(xNum,yNum)
+
+		}
+		
+		function draw(){
+			if(Next == 0){
+			rect(0,0,img.width,img.height)
+			image(img, 0, 0)
+			}
+			if(Next == 1){
+			strokeWeight(2)
+			for(x=0;x<=img.width;x+=img.width/xNum){
+			line(x,0,x,img.height)
+			}
+			for(y=0;y<=img.height;y+=img.height/yNum){
+				line(0,y,img.width,y)
+			}
+			}
+			if(Next == 2){
+			BoxWidth = img.width/xNum
+			BoxHeight = img.height/yNum
+			for(xS=0;xS<img.width;xS+=BoxWidth){
+				for(yS=0;yS<img.height;yS+=BoxHeight){
+					Tone = AverageGreyValue(img,xS,yS,xS+BoxWidth,yS+BoxHeight,2)
+					Tone = floor(Tone)
+					fill(Tone)
+					rect(xS,yS,xS+BoxWidth,yS+BoxHeight)
+					x = floor(xS/BoxWidth)
+					y = floor(yS/BoxHeight)
+					if(Tone < 150){
+						Tone = 0
+					} else {
+						Tone = 1
+					}
+					Rects[y][x] = Tone
+				}
+			}
+			}
+			if(Next == 3){
+				BoxWidth = img.width/xNum
+				BoxHeight = img.height/yNum
+				for(xS=0;xS<img.width;xS+=BoxWidth){
+				for(yS=0;yS<img.height;yS+=BoxHeight){
+					x = floor(xS/BoxWidth)
+					y = floor(yS/BoxHeight)
+					fill(Rects[y][x]*255)
+					rect(xS,yS,xS+BoxWidth,yS+BoxHeight)
+
+					
+			}
+				}
+				//FinalForm = ArrayToArrayOfStrings(Rects)
+				FinalForm = []
+				L = Rects.length
+				for(p=0;p<L-1;p++){
+				FinalForm[p] = ArrayToString(Rects[p])
+				}
+				console.log(FinalForm)
+				
+				FileObject = {name:FileName, map:FinalForm}
+				saveJSON(FileObject,FileName)
+				noLoop();
+				
+			}
+			
+			
+			
+		}
+		
+		function AverageGreyValue(img,x1,y1,x2,y2,n){
+			GreySum = 0
+			PointSum = 0
+			for(x=x1;x<=x2;x+=(x2-x1)/n){
+				for(y=y1;y<=y2;y+=(y2-y1)/n){
+					PointSum ++
+					Colour = img.get(x,y)
+					R = Colour[0]
+					G = Colour[1]
+					B = Colour[2]
+					GreyValue = (R+G+B)/3
+					GreySum += GreyValue
+				}
+			}
+			AverageTone = GreySum/PointSum
+			return AverageTone
+		}
+		
+		function keyPressed(){
+			Next++
+		}
+					
+		function TwoDArray(W,H){
+			x = []
+			for(i=0;i<=W;i++){
+				y = []
+				for(j=0;j<=H;j++){
+					y[j] = 0
+				}
+				x[i] = y
+			}
+			return x
+		}
+		
+		function ArrayToString(A){
+			var S = ""
+			for(i=0;i<A.length-1;i++){
+				if(A[i] == 1){
+					S += "0"
+				} else {
+					S += "1"
+				}
+			}
+			return S
+		}
+		
+
+		
+	  	
+		
+	  </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

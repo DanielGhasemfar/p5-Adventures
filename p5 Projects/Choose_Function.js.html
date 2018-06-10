@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+      
+      var a=4
+      var b=3
+
+      console.log(a+" choose "+b+" equals "+choose(a,b))
+      
+      
+      
+    
+      function factorial(n){
+          if (n===0){
+              return 1
+          }
+          return n*factorial(n-1)
+      }
+        
+        
+        
+    function choose(n,k){
+        return factorial(n)/(factorial(k)*factorial(n-k))
+    }
+      
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

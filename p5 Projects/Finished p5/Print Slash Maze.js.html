@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+  
+        var space = 10
+        var x=0
+        var y=0
+        var p=0.5
+        
+        function setup(){
+            createCanvas(600,600)
+            background(150)
+        }
+        
+        
+        function draw(){
+            background(150)
+            for(x=0;x<=width;x+=space){
+                for(y=0;y<=height;y+=space){
+                    drawLine()
+                }
+            }
+
+            noLoop()
+
+        }
+        
+        function drawLine(){
+            if(random(0,1)<p){
+            line(x,y,x+space,y+space)
+            } else {
+            line(x+space,y,x,y+space)
+            }
+        }
+        
+        function keyPressed(){
+            if(keyCode == RIGHT_ARROW){
+                p+=0.005
+                redraw()
+                }
+            
+            if(KeyCode == LEFT_ARROW){
+                    p+=-0.005
+                }
+        }
+        
+        
+        
+        
+        
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

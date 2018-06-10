@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+    <script>
+        
+        
+        var t=0
+        var boxes=40
+		
+		
+		function preload(){
+			//img = loadImage('road.jpeg')
+			//img = loadImage('Portrait.jpeg')	
+		  //img = loadImage('2018.jpeg')
+		  //img = loadImage('SpanishFlag.png')
+		  //img = loadImage('colour2018.jpeg')
+		  img = loadImage('road.jpeg')
+		  //img = loadImage('Daniel.jpeg')
+		  //img = loadImage('SeaPort.jpeg')
+		  //img = loadImage('RandomNoise.jpeg')
+			//img = loadImage('Luke.jpeg')
+			
+		}
+
+        function setup(){
+            createCanvas(800,800);
+  slider = createSlider(1, 150, 50);
+  slider.position(10, 750);
+  slider.style('width', '200px');
+        }
+        
+        
+        function draw(){
+            frameRate(20)
+			noStroke()
+            boxes = slider.value()
+            background(150);
+            for(x=0;x<=width;x+=width/boxes){
+            for(y=0;y<=height-100;y+=height/boxes){
+                    t+=0.5
+                    //fill(random(255),random(255),random(255),150)
+                    //fill(255-t%255,0,t%255,100)
+				    colour = img.get(x/3.5,y/3.5)
+					//colour = img.get(x,y)
+				    fill(colour)
+                    rect(x,y,width/boxes,height/boxes)
+                }
+            }
+        }
+        
+        
+        
+        
+        
+      </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  <style> body {padding: 0; margin: 0;} </style>
+  </head>
+  <body>
+  </body>
+</html>

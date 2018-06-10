@@ -1,0 +1,22 @@
+function setup() {
+createCanvas(800, 800);
+background(150);
+frameRate(100);
+}
+
+function draw() {
+fill(40,40,190);
+    
+if (keyIsPressed=== true) {background(150);};
+
+
+if (mouseIsPressed) {
+ noStroke();
+ fill(128, 064, 000);
+ ellipse(mouseX,mouseY,25,25);
+ }
+
+  
+}
+
+
